@@ -67,7 +67,7 @@ func Routers() *gin.Engine {
 		//轮播图
 
 		//用户
-
+		clientRouter.InitMallUserRouter(ClientGroup)
 		//用户地址
 
 		//订单

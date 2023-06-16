@@ -4,4 +4,5 @@ type ServiceGroup struct {
 	UserTokenService
 	CarouselService
 	GoodsCategoryService
+	UserService
 }
