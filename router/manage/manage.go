@@ -5,4 +5,5 @@ type AdminRouterGroup struct {
 	AdminCarouselRouter
 	AdminGoodsCategoryRouter
 	AdminGoodsInfoRouter
+	AdminIndexConfigRouter
 }

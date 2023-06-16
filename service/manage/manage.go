@@ -7,4 +7,5 @@ type AdminServiceGroup struct {
 	AdminCarouselService
 	AdminGoodsCategoryService
 	AdminGoodsInfoService
+	AdminIndexConfigService
 }
