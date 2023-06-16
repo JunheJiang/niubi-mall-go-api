@@ -6,11 +6,11 @@ import (
 	"niubi-mall/service/manage"
 )
 
-type ServiceGroup struct {
+type AppServiceGroup struct {
 	//has a
-	AdminServiceGroup   manage.ServiceGroup
-	MallServiceGroup    mall.ServiceGroup
+	AdminServiceGroup   manage.AdminServiceGroup
+	MallServiceGroup    mall.ClientServiceGroup
 	ExampleServiceGroup example.ServiceGroup
 }
 
-var ServiceGroupApp = new(ServiceGroup)
+var ServiceGroupApp = new(AppServiceGroup)

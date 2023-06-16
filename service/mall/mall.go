@@ -1,5 +1,5 @@
 package mall
 
-type ServiceGroup struct {
+type ClientServiceGroup struct {
 	UserTokenService
 }

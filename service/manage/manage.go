@@ -1,9 +1,10 @@
 package manage
 
-type ServiceGroup struct {
+type AdminServiceGroup struct {
 	AdminUserService
 	AdminUserTokenService
 	UserService
 	AdminCarouselService
 	AdminGoodsCategoryService
+	AdminGoodsInfoService
 }

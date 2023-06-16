@@ -2,7 +2,7 @@ package manage
 
 import "niubi-mall/model/common"
 
-// MallGoodsInfo 结构体
+// MallGoodsInfo 结构体 数据库实体 database entity
 // 如果含有time.Time 请自行import time包
 type MallGoodsInfo struct {
 	GoodsId            int             `json:"goodsId" form:"goodsId" gorm:"primarykey;AUTO_INCREMENT"`

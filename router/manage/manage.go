@@ -4,4 +4,5 @@ type AdminRouterGroup struct {
 	AdminUserRouter
 	AdminCarouselRouter
 	AdminGoodsCategoryRouter
+	AdminGoodsInfoRouter
 }
