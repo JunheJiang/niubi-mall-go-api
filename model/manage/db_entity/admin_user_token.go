@@ -1,4 +1,4 @@
-package manage
+package db_entity
 
 import "time"
 

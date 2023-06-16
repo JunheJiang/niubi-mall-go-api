@@ -5,9 +5,9 @@ import (
 	"gorm.io/gorm"
 	"niubi-mall/global"
 	"niubi-mall/model/common"
-	"niubi-mall/model/common/request"
-	"niubi-mall/model/manage"
-	manageReq "niubi-mall/model/manage/request"
+	"niubi-mall/model/common/req_param"
+	"niubi-mall/model/manage/db_entity"
+	manageReq "niubi-mall/model/manage/req_param"
 	"niubi-mall/utils/check"
 	"strconv"
 	"time"
@@ -19,7 +19,7 @@ type AdminCarouselService struct {
 func (m *AdminCarouselService) CreateCarousel(req manageReq.MallCarouselAddParam) (err error) {
 	carouseRank, _ := strconv.Atoi(req.CarouselRank)
 
-	mallCarousel := manage.MallCarousel{
+	mallCarousel := db_entity.MallCarousel{
 		CarouselUrl:  req.CarouselUrl,
 		RedirectUrl:  req.RedirectUrl,
 		CarouselRank: carouseRank,
@@ -36,19 +36,19 @@ func (m *AdminCarouselService) CreateCarousel(req manageReq.MallCarouselAddParam
 	return err
 }
 
-func (m *AdminCarouselService) DeleteCarousel(ids request.IdsReq) (err error) {
-	err = global.GVA_DB.Delete(&manage.MallCarousel{}, "carousel_id in ?", ids.Ids).Error
+func (m *AdminCarouselService) DeleteCarousel(ids req_param.IdsReq) (err error) {
+	err = global.GVA_DB.Delete(&db_entity.MallCarousel{}, "carousel_id in ?", ids.Ids).Error
 	return err
 }
 
 func (m *AdminCarouselService) UpdateCarousel(req manageReq.MallCarouselUpdateParam) (err error) {
 
-	if errors.Is(global.GVA_DB.Where("carousel_id = ?", req.CarouselId).First(&manage.MallCarousel{}).Error, gorm.ErrRecordNotFound) {
+	if errors.Is(global.GVA_DB.Where("carousel_id = ?", req.CarouselId).First(&db_entity.MallCarousel{}).Error, gorm.ErrRecordNotFound) {
 		return errors.New("未查询到记录！")
 	}
 
 	carouseRank, _ := strconv.Atoi(req.CarouselRank)
-	mallCarousel := manage.MallCarousel{
+	mallCarousel := db_entity.MallCarousel{
 		CarouselUrl:  req.CarouselUrl,
 		RedirectUrl:  req.RedirectUrl,
 		CarouselRank: carouseRank,
@@ -63,7 +63,7 @@ func (m *AdminCarouselService) UpdateCarousel(req manageReq.MallCarouselUpdatePa
 	return err
 }
 
-func (m *AdminCarouselService) GetCarousel(id int) (err error, mallCarousel manage.MallCarousel) {
+func (m *AdminCarouselService) GetCarousel(id int) (err error, mallCarousel db_entity.MallCarousel) {
 	err = global.GVA_DB.Where("carousel_id = ?", id).First(&mallCarousel).Error
 	return
 }
@@ -72,8 +72,8 @@ func (m *AdminCarouselService) GetCarouselInfoList(info manageReq.MallCarouselSe
 	limit := info.PageSize
 	offset := info.PageSize * (info.PageNumber - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&manage.MallCarousel{})
-	var mallCarousels []manage.MallCarousel
+	db := global.GVA_DB.Model(&db_entity.MallCarousel{})
+	var mallCarousels []db_entity.MallCarousel
 	// 如果有条件搜索 下方会自动创建搜索语句
 	err = db.Count(&total).Error
 	if err != nil {

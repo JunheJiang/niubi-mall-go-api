@@ -4,7 +4,7 @@ import (
 	"errors"
 	"mime/multipart"
 	"niubi-mall/global"
-	"niubi-mall/model/common/request"
+	"niubi-mall/model/common/req_param"
 	"niubi-mall/model/example"
 	dataFile "niubi-mall/utils/file"
 	"strings"
@@ -55,10 +55,10 @@ func (e *FileUploadAndDownloadService) DeleteFile(file example.ExaFileUploadAndD
 //@author: [piexlmax](https://github.com/piexlmax)
 //@function: GetFileRecordInfoList
 //@description: 分页获取数据
-//@param: info request.PageInfo
+//@param: info req_param.PageInfo
 //@return: err error, list interface{}, total int64
 
-func (e *FileUploadAndDownloadService) GetFileRecordInfoList(info request.PageInfo) (err error, list interface{}, total int64) {
+func (e *FileUploadAndDownloadService) GetFileRecordInfoList(info req_param.PageInfo) (err error, list interface{}, total int64) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.PageNumber - 1)
 	db := global.GVA_DB.Model(&example.ExaFileUploadAndDownload{})

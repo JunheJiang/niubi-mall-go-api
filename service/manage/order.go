@@ -6,9 +6,9 @@ import (
 	"niubi-mall/global"
 	"niubi-mall/model/common"
 	"niubi-mall/model/common/enum"
-	"niubi-mall/model/common/request"
-	"niubi-mall/model/manage"
-	"niubi-mall/model/manage/response"
+	"niubi-mall/model/common/req_param"
+	"niubi-mall/model/manage/db_entity"
+	"niubi-mall/model/manage/resp_vo"
 	"strconv"
 	"time"
 )
@@ -17,8 +17,8 @@ type AdminOrderService struct {
 }
 
 // CheckDone 修改订单状态为配货成功
-func (m *AdminOrderService) CheckDone(ids request.IdsReq) (err error) {
-	var orders []manage.MallOrder
+func (m *AdminOrderService) CheckDone(ids req_param.IdsReq) (err error) {
+	var orders []db_entity.MallOrder
 	err = global.GVA_DB.Where("order_id in ?", ids.Ids).Find(&orders).Error
 
 	var errorOrders string
@@ -38,7 +38,7 @@ func (m *AdminOrderService) CheckDone(ids request.IdsReq) (err error) {
 
 		if errorOrders == "" {
 			if err = global.GVA_DB.Where("order_id in ?", ids.Ids).
-				UpdateColumns(manage.MallOrder{OrderStatus: 2, UpdateTime: common.JSONTime{Time: time.Now()}}).Error; err != nil {
+				UpdateColumns(db_entity.MallOrder{OrderStatus: 2, UpdateTime: common.JSONTime{Time: time.Now()}}).Error; err != nil {
 				return err
 			}
 		} else {
@@ -49,8 +49,8 @@ func (m *AdminOrderService) CheckDone(ids request.IdsReq) (err error) {
 }
 
 // CheckOut 出库
-func (m *AdminOrderService) CheckOut(ids request.IdsReq) (err error) {
-	var orders []manage.MallOrder
+func (m *AdminOrderService) CheckOut(ids req_param.IdsReq) (err error) {
+	var orders []db_entity.MallOrder
 	err = global.GVA_DB.Where("order_id in ?", ids.Ids).Find(&orders).Error
 
 	var errorOrders string
@@ -70,7 +70,7 @@ func (m *AdminOrderService) CheckOut(ids request.IdsReq) (err error) {
 
 		if errorOrders == "" {
 			if err = global.GVA_DB.Where("order_id in ?", ids.Ids).
-				UpdateColumns(manage.MallOrder{OrderStatus: 3, UpdateTime: common.JSONTime{Time: time.Now()}}).Error; err != nil {
+				UpdateColumns(db_entity.MallOrder{OrderStatus: 3, UpdateTime: common.JSONTime{Time: time.Now()}}).Error; err != nil {
 				return err
 			}
 		} else {
@@ -81,8 +81,8 @@ func (m *AdminOrderService) CheckOut(ids request.IdsReq) (err error) {
 }
 
 // CloseOrder 商家关闭订单
-func (m *AdminOrderService) CloseOrder(ids request.IdsReq) (err error) {
-	var orders []manage.MallOrder
+func (m *AdminOrderService) CloseOrder(ids req_param.IdsReq) (err error) {
+	var orders []db_entity.MallOrder
 	err = global.GVA_DB.Where("order_id in ?", ids.Ids).Find(&orders).Error
 
 	var errorOrders string
@@ -101,7 +101,7 @@ func (m *AdminOrderService) CloseOrder(ids request.IdsReq) (err error) {
 
 		if errorOrders == "" {
 			if err = global.GVA_DB.Where("order_id in ?", ids.Ids).
-				UpdateColumns(manage.MallOrder{OrderStatus: enum.ORDER_CLOSED_BY_JUDGE.Code(), UpdateTime: common.JSONTime{Time: time.Now()}}).Error; err != nil {
+				UpdateColumns(db_entity.MallOrder{OrderStatus: enum.ORDER_CLOSED_BY_JUDGE.Code(), UpdateTime: common.JSONTime{Time: time.Now()}}).Error; err != nil {
 				return err
 			}
 		} else {
@@ -112,14 +112,14 @@ func (m *AdminOrderService) CloseOrder(ids request.IdsReq) (err error) {
 }
 
 // GetMallOrder 根据id获取MallOrder记录
-func (m *AdminOrderService) GetMallOrder(id string) (err error, newBeeMallOrderDetailVO response.NewBeeMallOrderDetailVO) {
-	var newBeeMallOrder manage.MallOrder
+func (m *AdminOrderService) GetMallOrder(id string) (err error, newBeeMallOrderDetailVO resp_vo.NewBeeMallOrderDetailVO) {
+	var newBeeMallOrder db_entity.MallOrder
 	if err = global.GVA_DB.Where("order_id = ?", id).First(&newBeeMallOrder).Error; err != nil {
 		//newBeeMallOrderDetailVO ---> nil
 		return
 	}
 
-	var orderItems []manage.MallOrderItem
+	var orderItems []db_entity.MallOrderItem
 	if err = global.GVA_DB.Where("order_id = ?", newBeeMallOrder.OrderId).Find(&orderItems).Error; err != nil {
 		//newBeeMallOrderDetailVO ---> nil
 		return
@@ -127,7 +127,7 @@ func (m *AdminOrderService) GetMallOrder(id string) (err error, newBeeMallOrderD
 
 	//获取订单项数据
 	if len(orderItems) > 0 {
-		var newBeeMallOrderItemVOS []response.NewBeeMallOrderItemVO
+		var newBeeMallOrderItemVOS []resp_vo.NewBeeMallOrderItemVO
 		copier.Copy(&newBeeMallOrderItemVOS, &orderItems)
 		copier.Copy(&newBeeMallOrderDetailVO, &newBeeMallOrder)
 
@@ -142,11 +142,11 @@ func (m *AdminOrderService) GetMallOrder(id string) (err error, newBeeMallOrderD
 }
 
 // GetMallOrderInfoList 分页获取MallOrder记录
-func (m *AdminOrderService) GetMallOrderInfoList(info request.PageInfo, orderNo string, orderStatus string) (err error, list interface{}, total int64) {
+func (m *AdminOrderService) GetMallOrderInfoList(info req_param.PageInfo, orderNo string, orderStatus string) (err error, list interface{}, total int64) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.PageNumber - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&manage.MallOrder{})
+	db := global.GVA_DB.Model(&db_entity.MallOrder{})
 
 	if orderNo != "" {
 		db.Where("order_no", orderNo)
@@ -158,7 +158,7 @@ func (m *AdminOrderService) GetMallOrderInfoList(info request.PageInfo, orderNo 
 		db.Where("order_status", status)
 	}
 
-	var mallOrders []manage.MallOrder
+	var mallOrders []db_entity.MallOrder
 	// 如果有条件搜索 下方会自动创建搜索语句
 	err = db.Count(&total).Error
 	if err != nil {

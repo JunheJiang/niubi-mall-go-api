@@ -1,4 +1,4 @@
-package response
+package resp_vo
 
 import (
 	"github.com/gin-gonic/gin"

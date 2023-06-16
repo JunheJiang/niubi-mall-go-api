@@ -1,4 +1,4 @@
-package response
+package resp_vo
 
 import "niubi-mall/model/common"
 

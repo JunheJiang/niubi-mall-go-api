@@ -1,4 +1,4 @@
-package request
+package req_param
 
 type MallAdminLoginParam struct {
 	UserName    string `json:"userName"`

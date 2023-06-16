@@ -1,4 +1,4 @@
-package response
+package resp_vo
 
 type PageResult struct {
 	List       interface{} `json:"list"`

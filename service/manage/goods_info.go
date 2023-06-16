@@ -6,9 +6,9 @@ import (
 	"niubi-mall/global"
 	"niubi-mall/model/common"
 	"niubi-mall/model/common/enum"
-	"niubi-mall/model/common/request"
-	"niubi-mall/model/manage"
-	manageReq "niubi-mall/model/manage/request"
+	"niubi-mall/model/common/req_param"
+	"niubi-mall/model/manage/db_entity"
+	manageReq "niubi-mall/model/manage/req_param"
 	"niubi-mall/utils/check"
 	"strconv"
 	"time"
@@ -20,7 +20,7 @@ type AdminGoodsInfoService struct {
 // CreateMallGoodsInfo 创建MallGoodsInfo
 func (m *AdminGoodsInfoService) CreateMallGoodsInfo(req manageReq.GoodsInfoAddParam) (err error) {
 
-	var goodsCategory manage.MallGoodsCategory
+	var goodsCategory db_entity.MallGoodsCategory
 
 	err = global.GVA_DB.Where("category_id=?  AND is_deleted=0", req.GoodsCategoryId).First(&goodsCategory).Error
 	if goodsCategory.CategoryLevel != enum.LevelThree.Code() {
@@ -28,7 +28,7 @@ func (m *AdminGoodsInfoService) CreateMallGoodsInfo(req manageReq.GoodsInfoAddPa
 	}
 
 	if !errors.Is(global.GVA_DB.Where("goods_name=? AND goods_category_id=?", req.GoodsName, req.GoodsCategoryId).
-		First(&manage.MallGoodsInfo{}).Error, gorm.ErrRecordNotFound) {
+		First(&db_entity.MallGoodsInfo{}).Error, gorm.ErrRecordNotFound) {
 		return errors.New("已存在相同的商品信息")
 	}
 
@@ -36,7 +36,7 @@ func (m *AdminGoodsInfoService) CreateMallGoodsInfo(req manageReq.GoodsInfoAddPa
 	sellingPrice, _ := strconv.Atoi(req.SellingPrice)
 	stockNum, _ := strconv.Atoi(req.StockNum)
 	goodsSellStatus, _ := strconv.Atoi(req.GoodsSellStatus)
-	goodsInfo := manage.MallGoodsInfo{
+	goodsInfo := db_entity.MallGoodsInfo{
 		GoodsName:          req.GoodsName,
 		GoodsIntro:         req.GoodsIntro,
 		GoodsCategoryId:    req.GoodsCategoryId,
@@ -59,16 +59,16 @@ func (m *AdminGoodsInfoService) CreateMallGoodsInfo(req manageReq.GoodsInfoAddPa
 }
 
 // DeleteMallGoodsInfo 删除MallGoodsInfo记录
-func (m *AdminGoodsInfoService) DeleteMallGoodsInfo(mallGoodsInfo manage.MallGoodsInfo) (err error) {
+func (m *AdminGoodsInfoService) DeleteMallGoodsInfo(mallGoodsInfo db_entity.MallGoodsInfo) (err error) {
 	err = global.GVA_DB.Delete(&mallGoodsInfo).Error
 	return err
 }
 
 // ChangeMallGoodsInfoByIds 上下架
-func (m *AdminGoodsInfoService) ChangeMallGoodsInfoByIds(ids request.IdsReq, sellStatus string) (err error) {
+func (m *AdminGoodsInfoService) ChangeMallGoodsInfoByIds(ids req_param.IdsReq, sellStatus string) (err error) {
 	intSellStatus, _ := strconv.Atoi(sellStatus)
 	//更新字段为0时，不能直接UpdateColumns
-	err = global.GVA_DB.Model(&manage.MallGoodsInfo{}).Where("goods_id in ?", ids.Ids).Update("goods_sell_status", intSellStatus).Error
+	err = global.GVA_DB.Model(&db_entity.MallGoodsInfo{}).Where("goods_id in ?", ids.Ids).Update("goods_sell_status", intSellStatus).Error
 	return err
 }
 
@@ -77,7 +77,7 @@ func (m *AdminGoodsInfoService) UpdateMallGoodsInfo(req manageReq.GoodsInfoUpdat
 	goodsId, _ := strconv.Atoi(req.GoodsId)
 	originalPrice, _ := strconv.Atoi(req.OriginalPrice)
 	stockNum, _ := strconv.Atoi(req.StockNum)
-	goodsInfo := manage.MallGoodsInfo{
+	goodsInfo := db_entity.MallGoodsInfo{
 		GoodsId:            goodsId,
 		GoodsName:          req.GoodsName,
 		GoodsIntro:         req.GoodsIntro,
@@ -100,7 +100,7 @@ func (m *AdminGoodsInfoService) UpdateMallGoodsInfo(req manageReq.GoodsInfoUpdat
 }
 
 // GetMallGoodsInfo 根据id获取MallGoodsInfo记录
-func (m *AdminGoodsInfoService) GetMallGoodsInfo(id int) (err error, mallGoodsInfo manage.MallGoodsInfo) {
+func (m *AdminGoodsInfoService) GetMallGoodsInfo(id int) (err error, mallGoodsInfo db_entity.MallGoodsInfo) {
 	err = global.GVA_DB.Where("goods_id = ?", id).First(&mallGoodsInfo).Error
 	return
 }
@@ -110,9 +110,9 @@ func (m *AdminGoodsInfoService) GetMallGoodsInfoInfoList(info manageReq.MallGood
 	limit := info.PageSize
 	offset := info.PageSize * (info.PageNumber - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&manage.MallGoodsInfo{})
+	db := global.GVA_DB.Model(&db_entity.MallGoodsInfo{})
 
-	var mallGoodsInfos []manage.MallGoodsInfo
+	var mallGoodsInfos []db_entity.MallGoodsInfo
 	// 如果有条件搜索 下方会自动创建搜索语句
 	err = db.Count(&total).Error
 	if err != nil {

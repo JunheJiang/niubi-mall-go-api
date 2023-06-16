@@ -1,4 +1,4 @@
-package manage
+package db_entity
 
 // MallAdminUser 结构体
 type MallAdminUser struct {

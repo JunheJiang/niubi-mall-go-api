@@ -5,9 +5,9 @@ import (
 	"gorm.io/gorm"
 	"niubi-mall/global"
 	"niubi-mall/model/common"
-	"niubi-mall/model/common/request"
-	"niubi-mall/model/manage"
-	manageReq "niubi-mall/model/manage/request"
+	"niubi-mall/model/common/req_param"
+	"niubi-mall/model/manage/db_entity"
+	manageReq "niubi-mall/model/manage/req_param"
 	"niubi-mall/utils/check"
 	"niubi-mall/utils/no"
 	"strconv"
@@ -21,12 +21,12 @@ type AdminGoodsCategoryService struct {
 func (m *AdminGoodsCategoryService) AddCategory(req manageReq.MallGoodsCategoryReq) (err error) {
 
 	if !errors.Is(global.GVA_DB.Where("category_level=? AND category_name=? AND is_deleted=0",
-		req.CategoryLevel, req.CategoryName).First(&manage.MallGoodsCategory{}).Error, gorm.ErrRecordNotFound) {
+		req.CategoryLevel, req.CategoryName).First(&db_entity.MallGoodsCategory{}).Error, gorm.ErrRecordNotFound) {
 		return errors.New("存在相同分类")
 	}
 
 	rank, _ := strconv.Atoi(req.CategoryRank)
-	category := manage.MallGoodsCategory{
+	category := db_entity.MallGoodsCategory{
 		CategoryLevel: req.CategoryLevel,
 		CategoryName:  req.CategoryName,
 		CategoryRank:  rank,
@@ -46,12 +46,12 @@ func (m *AdminGoodsCategoryService) AddCategory(req manageReq.MallGoodsCategoryR
 func (m *AdminGoodsCategoryService) UpdateCategory(req manageReq.MallGoodsCategoryReq) (err error) {
 
 	if !errors.Is(global.GVA_DB.Where("category_level=? AND category_name=? AND is_deleted=0",
-		req.CategoryLevel, req.CategoryName).First(&manage.MallGoodsCategory{}).Error, gorm.ErrRecordNotFound) {
+		req.CategoryLevel, req.CategoryName).First(&db_entity.MallGoodsCategory{}).Error, gorm.ErrRecordNotFound) {
 		return errors.New("存在相同分类")
 	}
 
 	rank, _ := strconv.Atoi(req.CategoryRank)
-	category := manage.MallGoodsCategory{
+	category := db_entity.MallGoodsCategory{
 		CategoryName: req.CategoryName,
 		CategoryRank: rank,
 		UpdateTime:   common.JSONTime{Time: time.Now()},
@@ -72,8 +72,8 @@ func (m *AdminGoodsCategoryService) SelectCategoryPage(req manageReq.SearchCateg
 		limit = 1000
 	}
 	offset := req.PageSize * (req.PageNumber - 1)
-	db := global.GVA_DB.Model(&manage.MallGoodsCategory{})
-	var categoryList []manage.MallGoodsCategory
+	db := global.GVA_DB.Model(&db_entity.MallGoodsCategory{})
+	var categoryList []db_entity.MallGoodsCategory
 
 	if no.NumInList(req.CategoryLevel, []int{1, 2, 3}) {
 		db.Where("category_level=?", req.CategoryLevel)
@@ -96,18 +96,18 @@ func (m *AdminGoodsCategoryService) SelectCategoryPage(req manageReq.SearchCateg
 }
 
 // SelectCategoryById 获取单个分类数据
-func (m *AdminGoodsCategoryService) SelectCategoryById(categoryId int) (err error, goodsCategory manage.MallGoodsCategory) {
+func (m *AdminGoodsCategoryService) SelectCategoryById(categoryId int) (err error, goodsCategory db_entity.MallGoodsCategory) {
 	err = global.GVA_DB.Where("category_id=?", categoryId).First(&goodsCategory).Error
 	return err, goodsCategory
 }
 
 // DeleteGoodsCategoriesByIds 批量设置失效
-func (m *AdminGoodsCategoryService) DeleteGoodsCategoriesByIds(ids request.IdsReq) (err error, goodsCategory manage.MallGoodsCategory) {
-	err = global.GVA_DB.Where("category_id in ?", ids.Ids).UpdateColumns(manage.MallGoodsCategory{IsDeleted: 1}).Error
+func (m *AdminGoodsCategoryService) DeleteGoodsCategoriesByIds(ids req_param.IdsReq) (err error, goodsCategory db_entity.MallGoodsCategory) {
+	err = global.GVA_DB.Where("category_id in ?", ids.Ids).UpdateColumns(db_entity.MallGoodsCategory{IsDeleted: 1}).Error
 	return err, goodsCategory
 }
 
-func (m *AdminGoodsCategoryService) SelectByLevelAndParentIdsAndNumber(parentId int, categoryLevel int) (err error, goodsCategories []manage.MallGoodsCategory) {
+func (m *AdminGoodsCategoryService) SelectByLevelAndParentIdsAndNumber(parentId int, categoryLevel int) (err error, goodsCategories []db_entity.MallGoodsCategory) {
 	err = global.GVA_DB.Where("category_id in ?", parentId).Where("category_level=?", categoryLevel).Where("is_deleted=0").Error
 	return err, goodsCategories
 }

@@ -1,8 +1,8 @@
-package request
+package req_param
 
 import (
 	"niubi-mall/model/common"
-	"niubi-mall/model/common/request"
+	"niubi-mall/model/common/req_param"
 )
 
 type MallGoodsCategoryReq struct {
@@ -19,5 +19,5 @@ type MallGoodsCategoryReq struct {
 type SearchCategoryParams struct {
 	CategoryLevel int `json:"categoryLevel" form:"categoryLevel"`
 	ParentId      int `json:"parentId" form:"parentId"`
-	request.PageInfo
+	req_param.PageInfo
 }

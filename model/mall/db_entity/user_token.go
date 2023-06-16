@@ -1,4 +1,4 @@
-package mall
+package db_entity
 
 import "time"
 
@@ -11,7 +11,7 @@ type UserToken struct {
 	ExpireTime time.Time `json:"expireTime" form:"expireTime" gorm:"column:expire_time;comment:token过期时间;type:datetime"`
 }
 
-// TableName MallUserToken 表名
+// TableName MallUserToken 表名 schema reflect 调用此方法名
 func (UserToken) TableName() string {
 	return "tb_newbee_mall_user_token"
 }

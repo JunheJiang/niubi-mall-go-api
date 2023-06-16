@@ -32,8 +32,8 @@ func Routers() *gin.Engine {
 	// 方便统一添加路由组前缀 多服务器上线使用
 	//商城后管路由
 	adminRouter := router.RouterGroupApp.Admin
-	// manage-api/v1
-	AdminGroup := Router.Group("manage-api")
+	// admin-api/v1
+	AdminGroup := Router.Group("admin-api")
 	{
 		//商城后管路由初始化
 		//用户
@@ -55,6 +55,12 @@ func Routers() *gin.Engine {
 		//积分
 
 	}
+
+	//client-api/v1
+	//mall app api
+	//adminRouter := router.RouterGroupApp.Admin
+	//// admin-api/v1
+	//AdminGroup := Router.Group("admin-api")
 
 	return Router
 }

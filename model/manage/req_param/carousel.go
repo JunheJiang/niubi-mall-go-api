@@ -1,13 +1,13 @@
-package request
+package req_param
 
 import (
-	"niubi-mall/model/common/request"
-	"niubi-mall/model/manage"
+	"niubi-mall/model/common/req_param"
+	"niubi-mall/model/manage/db_entity"
 )
 
 type MallCarouselSearch struct {
-	manage.MallCarousel
-	request.PageInfo
+	db_entity.MallCarousel
+	req_param.PageInfo
 }
 
 type MallCarouselAddParam struct {
