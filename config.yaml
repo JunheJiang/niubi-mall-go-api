@@ -22,7 +22,7 @@ system:
 zap:
   level: info
   format: console
-  prefix: 'mall'
+  prefix: '[mall] '
   director: log
   showLine: true
   encode-level: LowercaseColorLevelEncoder

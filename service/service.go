@@ -1,14 +1,16 @@
 package service
 
 import (
+	"niubi-mall/service/example"
 	"niubi-mall/service/mall"
 	"niubi-mall/service/manage"
 )
 
 type ServiceGroup struct {
 	//has a
-	ManageServiceGroup manage.ServiceGroup
-	MallServiceGroup   mall.ServiceGroup
+	ManageServiceGroup  manage.ServiceGroup
+	MallServiceGroup    mall.ServiceGroup
+	ExampleServiceGroup example.ServiceGroup
 }
 
 var ServiceGroupApp = new(ServiceGroup)
