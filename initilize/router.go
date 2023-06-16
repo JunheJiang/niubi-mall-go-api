@@ -47,7 +47,7 @@ func Routers() *gin.Engine {
 		//首页配置
 		adminRouter.InitManageIndexConfigRouter(AdminGroup)
 		//订单
-
+		adminRouter.InitManageOrderRouter(AdminGroup)
 		//商品属性
 
 		//物流

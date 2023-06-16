@@ -8,4 +8,5 @@ type AdminServiceGroup struct {
 	AdminGoodsCategoryService
 	AdminGoodsInfoService
 	AdminIndexConfigService
+	AdminOrderService
 }

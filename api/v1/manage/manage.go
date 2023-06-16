@@ -8,6 +8,7 @@ type ApiGroup struct {
 	AdminGoodsCategoryApi
 	AdminGoodsInfoApi
 	AdminIndexConfigApi
+	AdminOrderApi
 }
 
 var mallAdminUserService = service.ServiceGroupApp.AdminServiceGroup.AdminUserService
@@ -16,5 +17,6 @@ var mallAdminUserTokenService = service.ServiceGroupApp.AdminServiceGroup.AdminU
 var mallAdminCarouselService = service.ServiceGroupApp.AdminServiceGroup.AdminCarouselService
 var mallAdminGoodsCategoryService = service.ServiceGroupApp.AdminServiceGroup.AdminGoodsCategoryService
 var mallAdminGoodsInfoService = service.ServiceGroupApp.AdminServiceGroup.AdminGoodsInfoService
-var mallAAdminIndexConfigService = service.ServiceGroupApp.AdminServiceGroup.AdminIndexConfigService
+var mallAdminIndexConfigService = service.ServiceGroupApp.AdminServiceGroup.AdminIndexConfigService
+var mallAdminOrderService = service.ServiceGroupApp.AdminServiceGroup.AdminOrderService
 var fileUploadAndDownloadService = service.ServiceGroupApp.ExampleServiceGroup.FileUploadAndDownloadService

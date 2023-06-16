@@ -6,4 +6,5 @@ type AdminRouterGroup struct {
 	AdminGoodsCategoryRouter
 	AdminGoodsInfoRouter
 	AdminIndexConfigRouter
+	AdminOrderRouter
 }
