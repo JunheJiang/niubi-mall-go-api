@@ -4,4 +4,5 @@ type ServiceGroup struct {
 	AdminUserService
 	AdminUserTokenService
 	UserService
+	AdminCarouselService
 }

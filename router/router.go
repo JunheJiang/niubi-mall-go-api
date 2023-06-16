@@ -2,8 +2,8 @@ package router
 
 import "niubi-mall/router/manage"
 
-type Group struct {
-	Manage manage.AdminUserRouter
+type MallGroup struct {
+	Admin manage.AdminRouterGroup
 }
 
-var RouterGroupApp = new(Group)
+var RouterGroupApp = new(MallGroup)

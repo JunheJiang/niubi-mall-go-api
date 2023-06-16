@@ -2,7 +2,7 @@ package manage
 
 import "niubi-mall/model/common"
 
-// MallCarousel --- 轮播图
+// MallCarousel --- 轮播图entity
 type MallCarousel struct {
 	CarouselId   int             `json:"carouselId" form:"carouselId" gorm:"primarykey;AUTO_INCREMENT"`
 	CarouselUrl  string          `json:"carouselUrl" form:"carouselUrl" gorm:"column:carousel_url;comment:轮播图;type:varchar(100);"`

@@ -41,4 +41,6 @@ combination = is a+has a
 - 从main.go开始
 - 代码结构 从Java项目中也可知utils cfg model service controller(router) 必须的，component（middleware）成了一个习惯
 - 基准压测 go test -test.bench=.*、 go test -v -bench=. benchmark_test.go
+
+- mode entity、vo、param --- service  ---- api --- router
 ```

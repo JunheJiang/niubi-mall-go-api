@@ -21,14 +21,7 @@ func Routers() *gin.Engine {
 
 	global.GVA_LOG.Info("use middleware cors")
 
-	// 方便统一添加路由组前缀 多服务器上线使用
-	//商城后管路由
-	manageRouter := router.RouterGroupApp.Manage
-
-	ManageGroup := Router.Group("manage-api")
-
 	PublicGroup := Router.Group("")
-
 	{
 		// 健康监测
 		PublicGroup.GET("/health", func(c *gin.Context) {
@@ -36,9 +29,17 @@ func Routers() *gin.Engine {
 		})
 	}
 
+	// 方便统一添加路由组前缀 多服务器上线使用
+	//商城后管路由
+	adminRouter := router.RouterGroupApp.Admin
+	AdminGroup := Router.Group("manage-api")
 	{
 		//商城后管路由初始化
-		manageRouter.InitManageAdminUserRouter(ManageGroup)
+		//用户
+		adminRouter.InitManageAdminUserRouter(AdminGroup)
+		//轮播图
+		adminRouter.InitManageCarouselRouter(AdminGroup)
+
 	}
 
 	return Router
