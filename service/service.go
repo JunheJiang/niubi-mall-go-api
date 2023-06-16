@@ -8,7 +8,7 @@ import (
 
 type ServiceGroup struct {
 	//has a
-	ManageServiceGroup  manage.ServiceGroup
+	AdminServiceGroup   manage.ServiceGroup
 	MallServiceGroup    mall.ServiceGroup
 	ExampleServiceGroup example.ServiceGroup
 }

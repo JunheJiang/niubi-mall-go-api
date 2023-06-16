@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-var manageAdminUserTokenService = service.ServiceGroupApp.ManageServiceGroup.AdminUserTokenService
+var manageAdminUserTokenService = service.ServiceGroupApp.AdminServiceGroup.AdminUserTokenService
 var mallUserTokenService = service.ServiceGroupApp.MallServiceGroup.UserTokenService
 
 func AdminJWTAuth() gin.HandlerFunc {

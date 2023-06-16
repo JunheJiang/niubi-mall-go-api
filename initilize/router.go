@@ -39,7 +39,8 @@ func Routers() *gin.Engine {
 		adminRouter.InitManageAdminUserRouter(AdminGroup)
 		//轮播图
 		adminRouter.InitManageCarouselRouter(AdminGroup)
-
+		//商品分类
+		adminRouter.InitManageGoodsCategoryRouter(AdminGroup)
 	}
 
 	return Router
