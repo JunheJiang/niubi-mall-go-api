@@ -10,10 +10,10 @@ import (
 	"strconv"
 )
 
-type AdminCarouselApi struct {
+type CarouselApi struct {
 }
 
-func (m *AdminCarouselApi) CreateCarousel(c *gin.Context) {
+func (m *CarouselApi) CreateCarousel(c *gin.Context) {
 	var req manageReq.MallCarouselAddParam
 	_ = c.ShouldBindJSON(&req)
 	if err := mallAdminCarouselService.CreateCarousel(req); err != nil {
@@ -24,7 +24,7 @@ func (m *AdminCarouselApi) CreateCarousel(c *gin.Context) {
 	}
 }
 
-func (m *AdminCarouselApi) DeleteCarousel(c *gin.Context) {
+func (m *CarouselApi) DeleteCarousel(c *gin.Context) {
 	var ids req_param.IdsReq
 	_ = c.ShouldBindJSON(&ids)
 	if err := mallAdminCarouselService.DeleteCarousel(ids); err != nil {
@@ -35,7 +35,7 @@ func (m *AdminCarouselApi) DeleteCarousel(c *gin.Context) {
 	}
 }
 
-func (m *AdminCarouselApi) UpdateCarousel(c *gin.Context) {
+func (m *CarouselApi) UpdateCarousel(c *gin.Context) {
 	var req manageReq.MallCarouselUpdateParam
 	_ = c.ShouldBindJSON(&req)
 	if err := mallAdminCarouselService.UpdateCarousel(req); err != nil {
@@ -47,7 +47,7 @@ func (m *AdminCarouselApi) UpdateCarousel(c *gin.Context) {
 }
 
 // FindCarousel --- FindMallCarousel 用id查询MallCarousel
-func (m *AdminCarouselApi) FindCarousel(c *gin.Context) {
+func (m *CarouselApi) FindCarousel(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	if err, mallCarousel := mallAdminCarouselService.GetCarousel(id); err != nil {
 		global.GVA_LOG.Error("查询失败!"+err.Error(), zap.Error(err))
@@ -58,7 +58,7 @@ func (m *AdminCarouselApi) FindCarousel(c *gin.Context) {
 }
 
 // GetCarouselList --- GetMallCarouselList 分页获取MallCarousel列表
-func (m *AdminCarouselApi) GetCarouselList(c *gin.Context) {
+func (m *CarouselApi) GetCarouselList(c *gin.Context) {
 	var pageInfo manageReq.MallCarouselSearch
 	_ = c.ShouldBindQuery(&pageInfo)
 	if err, list, total := mallAdminCarouselService.GetCarouselInfoList(pageInfo); err != nil {

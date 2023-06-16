@@ -11,10 +11,10 @@ import (
 	"strconv"
 )
 
-type AdminGoodsInfoApi struct {
+type GoodsInfoApi struct {
 }
 
-func (m *AdminGoodsInfoApi) CreateGoodsInfo(c *gin.Context) {
+func (m *GoodsInfoApi) CreateGoodsInfo(c *gin.Context) {
 	var mallGoodsInfo manageReq.GoodsInfoAddParam
 	_ = c.ShouldBindJSON(&mallGoodsInfo)
 
@@ -27,7 +27,7 @@ func (m *AdminGoodsInfoApi) CreateGoodsInfo(c *gin.Context) {
 }
 
 // DeleteGoodsInfo --- DeleteMallGoodsInfo 删除MallGoodsInfo
-func (m *AdminGoodsInfoApi) DeleteGoodsInfo(c *gin.Context) {
+func (m *GoodsInfoApi) DeleteGoodsInfo(c *gin.Context) {
 	var mallGoodsInfo db_entity.MallGoodsInfo
 	_ = c.ShouldBindJSON(&mallGoodsInfo)
 
@@ -41,7 +41,7 @@ func (m *AdminGoodsInfoApi) DeleteGoodsInfo(c *gin.Context) {
 
 // ChangeMallGoodsInfoByIds 批量删除MallGoodsInfo
 
-func (m *AdminGoodsInfoApi) ChangeGoodsInfoByIds(c *gin.Context) {
+func (m *GoodsInfoApi) ChangeGoodsInfoByIds(c *gin.Context) {
 	var IDS req_param.IdsReq
 	_ = c.ShouldBindJSON(&IDS)
 
@@ -57,7 +57,7 @@ func (m *AdminGoodsInfoApi) ChangeGoodsInfoByIds(c *gin.Context) {
 
 // UpdateMallGoodsInfo 更新MallGoodsInfo
 
-func (m *AdminGoodsInfoApi) UpdateGoodsInfo(c *gin.Context) {
+func (m *GoodsInfoApi) UpdateGoodsInfo(c *gin.Context) {
 	var mallGoodsInfo manageReq.GoodsInfoUpdateParam
 	_ = c.ShouldBindJSON(&mallGoodsInfo)
 
@@ -71,7 +71,7 @@ func (m *AdminGoodsInfoApi) UpdateGoodsInfo(c *gin.Context) {
 
 // FindMallGoodsInfo 用id查询MallGoodsInfo
 
-func (m *AdminGoodsInfoApi) FindGoodsInfo(c *gin.Context) {
+func (m *GoodsInfoApi) FindGoodsInfo(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	err, goodsInfo := mallAdminGoodsInfoService.GetMallGoodsInfo(id)
 	if err != nil {
@@ -97,7 +97,7 @@ func (m *AdminGoodsInfoApi) FindGoodsInfo(c *gin.Context) {
 
 // GetMallGoodsInfoList 分页获取MallGoodsInfo列表
 
-func (m *AdminGoodsInfoApi) GetGoodsInfoList(c *gin.Context) {
+func (m *GoodsInfoApi) GetGoodsInfoList(c *gin.Context) {
 	var pageInfo manageReq.MallGoodsInfoSearch
 	_ = c.ShouldBindQuery(&pageInfo)
 

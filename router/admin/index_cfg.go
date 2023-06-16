@@ -13,7 +13,7 @@ func (r *IndexConfigRouter) InitManageIndexConfigRouter(Router *gin.RouterGroup)
 
 	mallIndexConfigRouter := Router.Group("v1").Use(middleware.AdminJWTAuth())
 
-	var mallIndexConfigApi = v1.ApiGroupApp.AdminApiGroup.AdminIndexConfigApi
+	var mallIndexConfigApi = v1.ApiGroupApp.AdminApiGroup.IndexConfigApi
 	{
 		mallIndexConfigRouter.POST("indexConfigs", mallIndexConfigApi.CreateIndexConfig)        // 新建MallIndexConfig
 		mallIndexConfigRouter.POST("indexConfigs/delete", mallIndexConfigApi.DeleteIndexConfig) // 删除MallIndexConfig

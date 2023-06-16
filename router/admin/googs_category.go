@@ -13,7 +13,7 @@ func (r *GoodsCategoryRouter) InitManageGoodsCategoryRouter(Router *gin.RouterGr
 
 	goodsCategoryRouter := Router.Group("v1").Use(middleware.AdminJWTAuth())
 
-	var goodsCategoryApi = v1.ApiGroupApp.AdminApiGroup.AdminGoodsCategoryApi
+	var goodsCategoryApi = v1.ApiGroupApp.AdminApiGroup.GoodsCategoryApi
 	{
 		goodsCategoryRouter.POST("categories", goodsCategoryApi.CreateCategory)
 		goodsCategoryRouter.PUT("categories", goodsCategoryApi.UpdateCategory)

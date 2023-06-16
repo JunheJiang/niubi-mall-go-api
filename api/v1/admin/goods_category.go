@@ -12,11 +12,11 @@ import (
 	"strconv"
 )
 
-type AdminGoodsCategoryApi struct {
+type GoodsCategoryApi struct {
 }
 
 // CreateCategory 新建商品分类
-func (g *AdminGoodsCategoryApi) CreateCategory(c *gin.Context) {
+func (g *GoodsCategoryApi) CreateCategory(c *gin.Context) {
 	var category manageReq.MallGoodsCategoryReq
 	_ = c.ShouldBindJSON(&category)
 	if err := mallAdminGoodsCategoryService.AddCategory(category); err != nil {
@@ -28,7 +28,7 @@ func (g *AdminGoodsCategoryApi) CreateCategory(c *gin.Context) {
 }
 
 // UpdateCategory 修改商品分类信息
-func (g *AdminGoodsCategoryApi) UpdateCategory(c *gin.Context) {
+func (g *GoodsCategoryApi) UpdateCategory(c *gin.Context) {
 	var category manageReq.MallGoodsCategoryReq
 	_ = c.ShouldBindJSON(&category)
 	if err := mallAdminGoodsCategoryService.UpdateCategory(category); err != nil {
@@ -40,7 +40,7 @@ func (g *AdminGoodsCategoryApi) UpdateCategory(c *gin.Context) {
 }
 
 // GetCategoryList 获取商品分类
-func (g *AdminGoodsCategoryApi) GetCategoryList(c *gin.Context) {
+func (g *GoodsCategoryApi) GetCategoryList(c *gin.Context) {
 	var req manageReq.SearchCategoryParams
 	_ = c.ShouldBindQuery(&req)
 	if err, list, total := mallAdminGoodsCategoryService.SelectCategoryPage(req); err != nil {
@@ -58,7 +58,7 @@ func (g *AdminGoodsCategoryApi) GetCategoryList(c *gin.Context) {
 }
 
 // GetCategory 通过id获取分类数据
-func (g *AdminGoodsCategoryApi) GetCategory(c *gin.Context) {
+func (g *GoodsCategoryApi) GetCategory(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	err, goodsCategory := mallAdminGoodsCategoryService.SelectCategoryById(id)
 	if err != nil {
@@ -70,7 +70,7 @@ func (g *AdminGoodsCategoryApi) GetCategory(c *gin.Context) {
 }
 
 // DelCategory 设置分类失效
-func (g *AdminGoodsCategoryApi) DelCategory(c *gin.Context) {
+func (g *GoodsCategoryApi) DelCategory(c *gin.Context) {
 	var ids req_param.IdsReq
 	_ = c.ShouldBindJSON(&ids)
 	if err, _ := mallAdminGoodsCategoryService.DeleteGoodsCategoriesByIds(ids); err != nil {
@@ -83,7 +83,7 @@ func (g *AdminGoodsCategoryApi) DelCategory(c *gin.Context) {
 }
 
 // ListForSelect 用于三级分类联动效果制作
-func (g *AdminGoodsCategoryApi) ListForSelect(c *gin.Context) {
+func (g *GoodsCategoryApi) ListForSelect(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	err, goodsCategory := mallAdminGoodsCategoryService.SelectCategoryById(id)
 	if err != nil {

@@ -10,10 +10,10 @@ import (
 	"strconv"
 )
 
-type AdminIndexConfigApi struct {
+type IndexConfigApi struct {
 }
 
-func (m *AdminIndexConfigApi) CreateIndexConfig(c *gin.Context) {
+func (m *IndexConfigApi) CreateIndexConfig(c *gin.Context) {
 	var req manageReq.MallIndexConfigAddParams
 	_ = c.ShouldBindJSON(&req)
 
@@ -25,7 +25,7 @@ func (m *AdminIndexConfigApi) CreateIndexConfig(c *gin.Context) {
 	}
 }
 
-func (m *AdminIndexConfigApi) DeleteIndexConfig(c *gin.Context) {
+func (m *IndexConfigApi) DeleteIndexConfig(c *gin.Context) {
 	var ids req_param.IdsReq
 	_ = c.ShouldBindJSON(&ids)
 
@@ -37,7 +37,7 @@ func (m *AdminIndexConfigApi) DeleteIndexConfig(c *gin.Context) {
 	}
 }
 
-func (m *AdminIndexConfigApi) UpdateIndexConfig(c *gin.Context) {
+func (m *IndexConfigApi) UpdateIndexConfig(c *gin.Context) {
 	var req manageReq.MallIndexConfigUpdateParams
 	_ = c.ShouldBindJSON(&req)
 
@@ -49,7 +49,7 @@ func (m *AdminIndexConfigApi) UpdateIndexConfig(c *gin.Context) {
 	}
 }
 
-func (m *AdminIndexConfigApi) FindIndexConfig(c *gin.Context) {
+func (m *IndexConfigApi) FindIndexConfig(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	if err, mallIndexConfig := mallAdminIndexConfigService.GetMallIndexConfig(uint(id)); err != nil {
@@ -60,7 +60,7 @@ func (m *AdminIndexConfigApi) FindIndexConfig(c *gin.Context) {
 	}
 }
 
-func (m *AdminIndexConfigApi) GetIndexConfigList(c *gin.Context) {
+func (m *IndexConfigApi) GetIndexConfigList(c *gin.Context) {
 	var pageInfo manageReq.MallIndexConfigSearch
 	_ = c.ShouldBindQuery(&pageInfo)
 	if err, list, total := mallAdminIndexConfigService.GetMallIndexConfigInfoList(pageInfo); err != nil {

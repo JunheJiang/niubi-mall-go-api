@@ -3,12 +3,12 @@ package admin
 import "niubi-mall/service"
 
 type ApiGroup struct {
-	AdminUserApi
-	AdminCarouselApi
-	AdminGoodsCategoryApi
-	AdminGoodsInfoApi
-	AdminIndexConfigApi
-	AdminOrderApi
+	UserApi
+	CarouselApi
+	GoodsCategoryApi
+	GoodsInfoApi
+	IndexConfigApi
+	OrderApi
 }
 
 var mallAdminUserService = service.ServiceGroupApp.AdminServiceGroup.AdminUserService

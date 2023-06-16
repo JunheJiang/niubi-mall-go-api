@@ -13,7 +13,7 @@ func (r *OrderRouter) InitManageOrderRouter(Router *gin.RouterGroup) {
 
 	mallOrderRouter := Router.Group("v1").Use(middleware.AdminJWTAuth())
 
-	var mallOrderApi = v1.ApiGroupApp.AdminApiGroup.AdminOrderApi
+	var mallOrderApi = v1.ApiGroupApp.AdminApiGroup.OrderApi
 	{
 		mallOrderRouter.PUT("orders/checkDone", mallOrderApi.CheckDoneOrder) // 发货
 		mallOrderRouter.PUT("orders/checkOut", mallOrderApi.CheckOutOrder)   // 出库

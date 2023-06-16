@@ -14,7 +14,7 @@ func (r *UserRouter) InitManageAdminUserRouter(Router *gin.RouterGroup) {
 
 	mallAdminUserWithoutRouter := Router.Group("v1")
 
-	var mallAdminUserApi = v1.ApiGroupApp.AdminApiGroup.AdminUserApi
+	var mallAdminUserApi = v1.ApiGroupApp.AdminApiGroup.UserApi
 	{
 		mallAdminUserRouter.POST("createMallAdminUser", mallAdminUserApi.CreateAdminUser) // 新建MallAdminUser
 		mallAdminUserRouter.PUT("adminUser/name", mallAdminUserApi.UpdateAdminUserName)   // 更新MallAdminUser

@@ -14,11 +14,11 @@ import (
 	"strconv"
 )
 
-type AdminUserApi struct {
+type UserApi struct {
 }
 
 // CreateAdminUser --- 创建AdminUser
-func (m *AdminUserApi) CreateAdminUser(c *gin.Context) {
+func (m *UserApi) CreateAdminUser(c *gin.Context) {
 	var params manageReq.MallAdminParam
 	_ = c.ShouldBindJSON(&params)
 
@@ -42,7 +42,7 @@ func (m *AdminUserApi) CreateAdminUser(c *gin.Context) {
 }
 
 // UpdateAdminUserPassword --- 修改密码
-func (m *AdminUserApi) UpdateAdminUserPassword(c *gin.Context) {
+func (m *UserApi) UpdateAdminUserPassword(c *gin.Context) {
 	var req manageReq.MallUpdatePasswordParam
 	_ = c.ShouldBindJSON(&req)
 	//mallAdminUserName := admin.MallAdminUser{
@@ -59,7 +59,7 @@ func (m *AdminUserApi) UpdateAdminUserPassword(c *gin.Context) {
 }
 
 // UpdateAdminUserName --- 更新用户名
-func (m *AdminUserApi) UpdateAdminUserName(c *gin.Context) {
+func (m *UserApi) UpdateAdminUserName(c *gin.Context) {
 	var req manageReq.MallUpdateNameParam
 	_ = c.ShouldBindJSON(&req)
 	userToken := c.GetHeader("token")
@@ -72,7 +72,7 @@ func (m *AdminUserApi) UpdateAdminUserName(c *gin.Context) {
 }
 
 // AdminUserProfile 用id查询AdminUser
-func (m *AdminUserApi) AdminUserProfile(c *gin.Context) {
+func (m *UserApi) AdminUserProfile(c *gin.Context) {
 	adminToken := c.GetHeader("token")
 	if err, mallAdminUser := mallAdminUserService.GetMallAdminUser(adminToken); err != nil {
 		global.GVA_LOG.Error("未查询到记录", zap.Error(err))
@@ -84,7 +84,7 @@ func (m *AdminUserApi) AdminUserProfile(c *gin.Context) {
 }
 
 // AdminLogin 管理员登陆
-func (m *AdminUserApi) AdminLogin(c *gin.Context) {
+func (m *UserApi) AdminLogin(c *gin.Context) {
 	var adminLoginParams manageReq.MallAdminLoginParam
 	_ = c.ShouldBindJSON(&adminLoginParams)
 	if err, _, adminToken := mallAdminUserService.AdminLogin(adminLoginParams); err != nil {
@@ -95,7 +95,7 @@ func (m *AdminUserApi) AdminLogin(c *gin.Context) {
 }
 
 // UserList --- 注册用户列表
-func (m *AdminUserApi) UserList(c *gin.Context) {
+func (m *UserApi) UserList(c *gin.Context) {
 	var pageInfo manageReq.MallUserSearch
 	_ = c.ShouldBindJSON(&pageInfo)
 	if err, list, total := mallUserService.GetMallUserInfoList(pageInfo); err != nil {
@@ -111,7 +111,7 @@ func (m *AdminUserApi) UserList(c *gin.Context) {
 	}
 }
 
-func (m *AdminUserApi) LockUser(c *gin.Context) {
+func (m *UserApi) LockUser(c *gin.Context) {
 	lockStatus, _ := strconv.Atoi(c.Param("lockStatus"))
 	var IDS req_param.IdsReq
 	_ = c.ShouldBindJSON(&IDS)
@@ -126,7 +126,7 @@ func (m *AdminUserApi) LockUser(c *gin.Context) {
 
 // UploadFile 上传单图
 // 此处上传图片的功能可用，但是原前端项目的图片链接为服务器地址，如需要显示图片，需要修改前端指向的图片链接
-func (m *AdminUserApi) UploadFile(c *gin.Context) {
+func (m *UserApi) UploadFile(c *gin.Context) {
 	var file example.ExaFileUploadAndDownload
 	noSave := c.DefaultQuery("noSave", "0")
 	_, header, err := c.Request.FormFile("file")

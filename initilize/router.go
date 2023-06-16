@@ -33,7 +33,7 @@ func Routers() *gin.Engine {
 	//商城后管路由
 	adminRouter := router.RouterGroupApp.Admin
 	// admin-api/v1
-	AdminGroup := Router.Group("admin-api")
+	AdminGroup := Router.Group("manage-api")
 	{
 		//商城后管路由初始化
 		//用户
@@ -58,9 +58,21 @@ func Routers() *gin.Engine {
 
 	//client-api/v1
 	//client app api
-	//adminRouter := router.RouterGroupApp.Admin
-	//// admin-api/v1
-	//AdminGroup := Router.Group("admin-api")
+	clientRouter := router.RouterGroupApp.Client
+	ClientGroup := Router.Group("api")
+	{
+		//client端
+		//商城分类
+		clientRouter.InitMallGoodsCategoryIndexRouter(ClientGroup)
+		//轮播图
 
+		//用户
+
+		//用户地址
+
+		//订单
+
+		//购物车
+	}
 	return Router
 }

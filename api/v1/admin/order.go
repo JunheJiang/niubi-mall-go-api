@@ -8,11 +8,11 @@ import (
 	"niubi-mall/model/common/resp_vo"
 )
 
-type AdminOrderApi struct {
+type OrderApi struct {
 }
 
 // CheckDoneOrder 发货
-func (m *AdminOrderApi) CheckDoneOrder(c *gin.Context) {
+func (m *OrderApi) CheckDoneOrder(c *gin.Context) {
 	var IDS req_param.IdsReq
 	_ = c.ShouldBindJSON(&IDS)
 
@@ -25,7 +25,7 @@ func (m *AdminOrderApi) CheckDoneOrder(c *gin.Context) {
 }
 
 // CheckOutOrder 出库
-func (m *AdminOrderApi) CheckOutOrder(c *gin.Context) {
+func (m *OrderApi) CheckOutOrder(c *gin.Context) {
 	var IDS req_param.IdsReq
 	_ = c.ShouldBindJSON(&IDS)
 
@@ -38,7 +38,7 @@ func (m *AdminOrderApi) CheckOutOrder(c *gin.Context) {
 }
 
 // CloseOrder 关闭订单
-func (m *AdminOrderApi) CloseOrder(c *gin.Context) {
+func (m *OrderApi) CloseOrder(c *gin.Context) {
 	var IDS req_param.IdsReq
 	_ = c.ShouldBindJSON(&IDS)
 
@@ -51,7 +51,7 @@ func (m *AdminOrderApi) CloseOrder(c *gin.Context) {
 }
 
 // FindMallOrder 用id查询MallOrder
-func (m *AdminOrderApi) FindMallOrder(c *gin.Context) {
+func (m *OrderApi) FindMallOrder(c *gin.Context) {
 	id := c.Param("orderId")
 
 	if err, newBeeMallOrderDetailVO := mallAdminOrderService.GetMallOrder(id); err != nil {
@@ -63,7 +63,7 @@ func (m *AdminOrderApi) FindMallOrder(c *gin.Context) {
 }
 
 // GetMallOrderList 分页获取MallOrder列表
-func (m *AdminOrderApi) GetMallOrderList(c *gin.Context) {
+func (m *OrderApi) GetMallOrderList(c *gin.Context) {
 	var pageInfo req_param.PageInfo
 	_ = c.ShouldBindQuery(&pageInfo)
 

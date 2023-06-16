@@ -1,11 +1,9 @@
 package request
 
-import (
-	"main.go/model/common/request"
-)
+import "niubi-mall/model/common/req_param"
 
 type MallShopCartSearch struct {
-	request.PageInfo
+	req_param.PageInfo
 }
 
 type SaveCartItemParam struct {

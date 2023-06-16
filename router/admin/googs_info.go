@@ -13,7 +13,7 @@ func (m *GoodsInfoRouter) InitManageGoodsInfoRouter(Router *gin.RouterGroup) {
 
 	mallGoodsInfoRouter := Router.Group("v1").Use(middleware.AdminJWTAuth())
 
-	var mallGoodsInfoApi = v1.ApiGroupApp.AdminApiGroup.AdminGoodsInfoApi
+	var mallGoodsInfoApi = v1.ApiGroupApp.AdminApiGroup.GoodsInfoApi
 
 	{
 		mallGoodsInfoRouter.POST("goods", mallGoodsInfoApi.CreateGoodsInfo)                    // 新建MallGoodsInfo
