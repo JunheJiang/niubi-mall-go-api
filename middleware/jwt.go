@@ -8,7 +8,7 @@ import (
 )
 
 var manageAdminUserTokenService = service.ServiceGroupApp.AdminServiceGroup.AdminUserTokenService
-var mallUserTokenService = service.ServiceGroupApp.MallServiceGroup.UserTokenService
+var mallUserTokenService = service.ServiceGroupApp.ClientServiceGroup.UserTokenService
 
 func AdminJWTAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {

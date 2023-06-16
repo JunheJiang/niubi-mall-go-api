@@ -1,9 +1,9 @@
 package v1
 
-import "niubi-mall/api/v1/manage"
+import "niubi-mall/api/v1/admin"
 
 type ApiGroup struct {
-	ManageApiGroup manage.ApiGroup
+	AdminApiGroup admin.ApiGroup
 }
 
 var ApiGroupApp = new(ApiGroup)

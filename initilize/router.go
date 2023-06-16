@@ -57,7 +57,7 @@ func Routers() *gin.Engine {
 	}
 
 	//client-api/v1
-	//mall app api
+	//client app api
 	//adminRouter := router.RouterGroupApp.Admin
 	//// admin-api/v1
 	//AdminGroup := Router.Group("admin-api")
