@@ -3,6 +3,7 @@ package no
 import (
 	"fmt"
 	"math/rand"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -27,4 +28,13 @@ func GenOrderNoWithLength(size int) string {
 		}
 	}
 	return sb.String()
+}
+
+func StrToInt(strNum string) (nums []int) {
+	strNums := strings.Split(strNum, ",")
+	for _, s := range strNums {
+		i, _ := strconv.Atoi(s)
+		nums = append(nums, i)
+	}
+	return
 }

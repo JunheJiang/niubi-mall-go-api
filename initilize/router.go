@@ -65,14 +65,17 @@ func Routers() *gin.Engine {
 		//商城分类
 		clientRouter.InitMallGoodsCategoryIndexRouter(ClientGroup)
 		//轮播图
-
+		clientRouter.InitMallCarouselIndexRouter(ClientGroup)
 		//用户
 		clientRouter.InitMallUserRouter(ClientGroup)
 		//用户地址
-
+		clientRouter.InitMallUserAddressRouter(ClientGroup)
 		//订单
-
+		clientRouter.InitMallOrderRouter(ClientGroup)
 		//购物车
+		clientRouter.InitMallShopCartRouter(ClientGroup)
+		//商品
+		clientRouter.InitMallGoodsInfoIndexRouter(ClientGroup)
 	}
 	return Router
 }
