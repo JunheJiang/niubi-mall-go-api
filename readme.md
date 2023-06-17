@@ -43,4 +43,8 @@ combination = is a+has a
 - 基准压测 go test -test.bench=.*、 go test -v -bench=. benchmark_test.go
 
 - mode entity、vo、param --- service  ---- api --- router
+
+- todo
+ 搜索：商品 订单
+ token redis session化
 ```
