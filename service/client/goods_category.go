@@ -15,7 +15,7 @@ type GoodsCategoryService struct {
 func (m *GoodsCategoryService) GetCategoriesForIndex() (err error, newBeeMallIndexCategoryVOS []response.NewBeeMallIndexCategoryVO) {
 
 	//获取一级分类的固定数量的数据
-	_, firstLevelCategories := selectByLevelAndParentIdsAndNumber([]int{0}, enum.LevelOne.Code(), 10)
+	_, firstLevelCategories := selectByLevelAndParentIdsAndNumber([]int{0}, enum.LevelOne.Code(), 20)
 
 	if firstLevelCategories != nil {
 		var firstLevelCategoryIds []int
@@ -26,7 +26,7 @@ func (m *GoodsCategoryService) GetCategoriesForIndex() (err error, newBeeMallInd
 		}
 
 		//获取二级分类的数据
-		_, secondLevelCategories := selectByLevelAndParentIdsAndNumber(firstLevelCategoryIds, enum.LevelTwo.Code(), 0)
+		_, secondLevelCategories := selectByLevelAndParentIdsAndNumber(firstLevelCategoryIds, enum.LevelTwo.Code(), 20)
 		if secondLevelCategories != nil {
 
 			var secondLevelCategoryIds []int
@@ -36,8 +36,9 @@ func (m *GoodsCategoryService) GetCategoriesForIndex() (err error, newBeeMallInd
 			}
 
 			//获取三级分类的数据
-			_, thirdLevelCategories := selectByLevelAndParentIdsAndNumber(secondLevelCategoryIds, enum.LevelThree.Code(), 0)
+			_, thirdLevelCategories := selectByLevelAndParentIdsAndNumber(secondLevelCategoryIds, enum.LevelThree.Code(), 20)
 			if thirdLevelCategories != nil {
+
 				//根据 parentId 将 thirdLevelCategories 分组
 				thirdLevelCategoryMap := make(map[int][]db_entity.MallGoodsCategory)
 
@@ -76,7 +77,7 @@ func (m *GoodsCategoryService) GetCategoriesForIndex() (err error, newBeeMallInd
 
 				}
 
-				//处理一级分类
+				//处理二级分类
 				if secondLevelCategoryVOS != nil {
 					//根据 parentId 将 thirdLevelCategories 分组
 					secondLevelCategoryVOMap := make(map[int][]response.SecondLevelCategoryVO)
@@ -116,8 +117,7 @@ func (m *GoodsCategoryService) GetCategoriesForIndex() (err error, newBeeMallInd
 }
 
 // 获取分类数据
-func selectByLevelAndParentIdsAndNumber(ids []int, level int, limit int) (err error,
-	categories []db_entity.MallGoodsCategory) {
+func selectByLevelAndParentIdsAndNumber(ids []int, level int, limit int) (err error, categories []db_entity.MallGoodsCategory) {
 
 	err = global.GVA_DB.Where("parent_id in ? and category_level =? and is_deleted = 0", ids, level).
 		Order("category_rank desc").Limit(limit).Find(&categories).Error

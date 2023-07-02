@@ -16,8 +16,8 @@ type SecondLevelCategoryVO struct {
 }
 
 type NewBeeMallIndexCategoryVO struct {
-	CategoryId int `json:"categoryId"`
-	//ParentId               int                      `json:"parentId"`
+	CategoryId             int                     `json:"categoryId"`
+	ParentId               int                     `json:"parentId"`
 	CategoryLevel          int                     `json:"categoryLevel"`
 	CategoryName           string                  `json:"categoryName" `
 	SecondLevelCategoryVOS []SecondLevelCategoryVO `json:"secondLevelCategoryVOS"`
